@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="top">
+    <div >
+        <!--<div style="text-align: right">a-->
+        <div class="head_encoding">切换至(
+            <span><a th:href="@{/index.html(encoding='zh_CN')}">中文</a></span>)或(
+            <span><a th:href="@{/index.html(encoding='en_US')}">English</a></span>)
+        </div>
+    </div>
+</footer>
+</html>

@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th ="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>活人先生的小屋</title>
+    <style>
+        .head_encoding{
+            text-align: right;
+            font-size: 16px;
+            font-weight: bold;
+
+        }
+        .head_encoding a:link{color: red}
+        .head_encoding a:visited{color: red}
+        .head_encoding a{text-decoration: none}
+    </style>
 </head>
 <body>
     <div>
         <div id="head">
-            <div>欢迎光临我的网站。</div>
-            <div>本网站由springBoot框架搭建，目前所使用技术包括：thymeleaf模板</div>
+            <div th:include="head::top"></div>
+            <div th:text="#{index.hello}">欢迎光临我的网站。</div>
+            <div th:text="#{index.detail}">本网站由springBoot框架搭建，目前所使用技术包括：thymeleaf模板</div>
 
         </div>
     </div>
