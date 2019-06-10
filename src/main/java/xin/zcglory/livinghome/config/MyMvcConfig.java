@@ -4,9 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import xin.zcglory.livinghome.component.MyLocalResolver;
+import xin.zcglory.livinghome.component.MyLoginHandlerInterceptor;
 
 /**
  * 自定义一个mvc解析器，作用是在spring Boot自身解析器的基础上进行一些扩充
@@ -16,23 +18,39 @@ import xin.zcglory.livinghome.component.MyLocalResolver;
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 
-    /**
-     * 添加视图解析
-     * @return 视图解析
-     */
+
     @Bean//将组件注册在spring容器中
     public WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer(){
-            @Override
+            /**
+             * 添加视图解析
+             */
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("index");
                 registry.addViewController("/index.html").setViewName("index");
+                registry.addViewController("/login.html").setViewName("login");
+                registry.addViewController("/home.html").setViewName("home");
+            }
+            /**
+             * 注册拦截器
+             */
+            //将组件注册在spring容器中
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                //静态资源；  *.css , *.js
+                //SpringBoot已经做好了静态资源映射
+                registry.addInterceptor(new MyLoginHandlerInterceptor()).addPathPatterns("/**")
+                        .excludePathPatterns("/index.html","/login.html","/","/user/login");
+
             }
         };
     }
+
 
     @Bean
     public LocaleResolver localeResolver() {
         return new MyLocalResolver();
     }
+
+
 }
