@@ -46,7 +46,10 @@ public class MyMvcConfig implements WebMvcConfigurer {
         };
     }
 
-
+    /**
+     * 添加自定义的国际化视图
+     * @return 自定义的国际化视图
+     */
     @Bean
     public LocaleResolver localeResolver() {
         return new MyLocalResolver();
