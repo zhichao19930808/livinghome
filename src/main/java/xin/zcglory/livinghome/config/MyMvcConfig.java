@@ -1,5 +1,9 @@
 package xin.zcglory.livinghome.config;
 
+import org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -17,6 +21,20 @@ import xin.zcglory.livinghome.component.MyLoginHandlerInterceptor;
 //@EnableWebMvc
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
+
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryWebServerFactoryCustomizer() {
+        return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
+            /**
+             * 定制嵌入式servlet容器相关的规则
+             * @param factory 嵌入式的servlet容器
+             */
+            @Override
+            public void customize(ConfigurableWebServerFactory factory) {
+                factory.setPort(8086);
+            }
+        };
+    }
 
 
     @Bean//将组件注册在spring容器中
