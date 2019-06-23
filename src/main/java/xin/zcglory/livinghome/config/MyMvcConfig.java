@@ -17,24 +17,11 @@ import xin.zcglory.livinghome.component.MyLoginHandlerInterceptor;
 /**
  * 自定义一个mvc解析器，作用是在spring Boot自身解析器的基础上进行一些扩充
  * 备注@EnableWebMvc 该备注会使springMVC的所有的配置都失效，正常不需要添加
+ *
  */
 //@EnableWebMvc
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
-
-    @Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryWebServerFactoryCustomizer() {
-        return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
-            /**
-             * 定制嵌入式servlet容器相关的规则
-             * @param factory 嵌入式的servlet容器
-             */
-            @Override
-            public void customize(ConfigurableWebServerFactory factory) {
-                factory.setPort(8086);
-            }
-        };
-    }
 
 
     @Bean//将组件注册在spring容器中
